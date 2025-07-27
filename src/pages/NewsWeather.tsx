@@ -42,7 +42,7 @@ const NewsWeather: React.FC = () => {
     const fetchNews = async () => {
       try {
         const response = await fetch(
-          `https://newsapi.org/v2/everything?q=India&language=en&pageSize=20&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`
+          `https://newsapi.org/v2/top-headlines?country=in&pageSize=20&apiKey=${NEWS_API_KEY}`
         );
         const data = await response.json();
         setNews(data.articles || []);
