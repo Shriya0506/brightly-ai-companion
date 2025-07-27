@@ -39,19 +39,27 @@ const NewsWeather: React.FC = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
 
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await fetch(
-          `https://newsapi.org/v2/top-headlines?country=in&pageSize=20&apiKey=${NEWS_API_KEY}`
-        );
-        const data = await response.json();
-        setNews(data.articles || []);
-      } catch (error) {
-        console.error("Error fetching news:", error);
-      }
-    };
+  const fetchNews = async () => {
+    const LOCAL_URL = `https://newsapi.org/v2/everything?q=technology&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
+    const PROD_URL = `https://newsapi.org/v2/top-headlines?country=in&category=technology&apiKey=${NEWS_API_KEY}`;
 
-    fetchNews();
+    let url = window.location.hostname === 'localhost' ? LOCAL_URL : PROD_URL;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status !== 'ok') {
+        throw new Error(data.message || 'NewsAPI error');
+      }
+
+      setNews(data.articles);
+    } catch (err: any) {
+      console.error("❌ News fetch failed:", err.message);
+    }
+  };
+
+  fetchNews();
   }, [userProfile]);
 
   useEffect(() => {
