@@ -40,10 +40,8 @@ const NewsWeather: React.FC = () => {
 
   useEffect(() => {
   const fetchNews = async () => {
-    const LOCAL_URL = `https://newsapi.org/v2/everything?q=technology&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
-    const PROD_URL = `https://newsapi.org/v2/everything?q=technology&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
-
-    let url = window.location.hostname === 'localhost' ? LOCAL_URL : PROD_URL;
+    const BASE_URL = 'https://newsapi.org/v2/everything';
+    const url = `${BASE_URL}?q=technology&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
 
     try {
       const response = await fetch(url);
@@ -60,7 +58,7 @@ const NewsWeather: React.FC = () => {
   };
 
   fetchNews();
-  }, [userProfile]);
+}, [userProfile]);
 
   useEffect(() => {
     const fetchWeather = async () => {
