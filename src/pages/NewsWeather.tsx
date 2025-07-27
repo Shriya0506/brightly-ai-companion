@@ -41,7 +41,7 @@ const NewsWeather: React.FC = () => {
   useEffect(() => {
   const fetchNews = async () => {
     const LOCAL_URL = `https://newsapi.org/v2/everything?q=technology&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
-    const PROD_URL = `https://newsapi.org/v2/top-headlines?country=in&category=technology&apiKey=${NEWS_API_KEY}`;
+    const PROD_URL = `https://newsapi.org/v2/everything?q=technology&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
 
     let url = window.location.hostname === 'localhost' ? LOCAL_URL : PROD_URL;
 
