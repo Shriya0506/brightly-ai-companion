@@ -9,7 +9,10 @@ export interface ChatMessage {
 }
 
 export class GeminiService {
-  private model = genAI.getGenerativeModel({ model: 'models/gemini-1.5-flash' });
+  private model = genAI.getGenerativeModel({
+  model: 'gemini-2.5-flash'
+});
+
 
   async generateResponse(
     message: string,
@@ -30,7 +33,15 @@ export class GeminiService {
 
       console.log("🔥 Prompt sent to Gemini:", fullPrompt);
 
-      const result = await this.model.generateContent(fullPrompt);
+      const result = await this.model.generateContent({
+  contents: [
+    {
+      role: "user",
+      parts: [{ text: fullPrompt }]
+    }
+  ]
+});
+
       const response = await result.response;
 
       console.log("✅ Response:", response.text());
